@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-var input = new Input("input.txt");
+var input = new Input("test.txt");
 var calsPerDwarf = input.batchBy("");
 
 // Solution1

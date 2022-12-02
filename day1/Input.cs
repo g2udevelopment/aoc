@@ -3,7 +3,7 @@ public class Input
 {
     string[] lines;
     public Input(string filename) {
-        lines = File.ReadAllLines("input.txt");
+        lines = File.ReadAllLines(filename);
     }
 
     public List<List<string>> batchBy(string sep) {
