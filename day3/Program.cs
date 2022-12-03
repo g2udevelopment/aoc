@@ -19,7 +19,6 @@ static int SolutionOne(string[] lines)
 
     foreach (var line in lines)
     {
-        var characters = new HashSet<char>();
         var midpoint = line.Length / 2;
         var left = line.Substring(0,midpoint);
         var right = line.Substring(midpoint);
