@@ -8,8 +8,8 @@ var solution1 = lines
 System.Console.WriteLine($"Solution 1 is: {solution1}");
 
 var solution2 = lines
-.Select(line => (line.Split(",")[0], line.Split(",")[1]))
-.Select(group => (RangeContainsPartial(ToRange(group.Item1), ToRange(group.Item2))))
+.Select(line => (fst: line.Split(",")[0], snd: line.Split(",")[1]))
+.Select(group => (RangeContainsPartial(ToRange(group.fst), ToRange(group.snd))))
 .Count(p => p == true);
 
 System.Console.WriteLine($"Solution 2 is: {solution2}");
