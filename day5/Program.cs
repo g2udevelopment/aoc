@@ -7,10 +7,7 @@ var sol2 = ParseFile(lines, ParseMove9001);
 System.Console.WriteLine($"Solution2: {sol2}");
 
 static void ParseMove9000(string moveLine, List<List<Char>> stack) {
-    var parts = moveLine.Split(' ');
-    var moves = int.Parse(parts[1]);
-    var from = int.Parse(parts[3])-1;
-    var to = int.Parse(parts[5])-1;
+    var (moves,from,to) = ParseMoveLine(moveLine);
 
     for (int i = 0; i < moves; i++)
     {
@@ -21,11 +18,13 @@ static void ParseMove9000(string moveLine, List<List<Char>> stack) {
 
 }
 
+static (int,int,int) ParseMoveLine(string move) {
+    var parts = move.Split(' ');
+    return (int.Parse(parts[1]), int.Parse(parts[3])-1, int.Parse(parts[5])-1);
+}
+
 static void ParseMove9001(string moveLine, List<List<Char>> stack) {
-    var parts = moveLine.Split(' ');
-    var moves = int.Parse(parts[1]);
-    var from = int.Parse(parts[3])-1;
-    var to = int.Parse(parts[5])-1;
+    var (moves,from,to) = ParseMoveLine(moveLine);
 
     var toPop = stack[from].Take(moves).Reverse().ToList();
     stack[from].RemoveRange(0,moves);
