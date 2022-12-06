@@ -8,8 +8,7 @@ static int FindMarker(string line, int length)
 {
     for (int i = 0; i < line.Length - length-1; i++)
     {
-        var marker = line.Substring(i, length);
-        if (marker.Distinct().Count() == length) // Marker found
+        if (line[i..(i+length)].Distinct().Count() == length) // Marker found
         { 
             return i + length;
         }
