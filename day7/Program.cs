@@ -3,25 +3,7 @@ var root = new Node(0);
 var dirStack = new Stack<Node>();
 dirStack.Push(root); //Push the root
 
-foreach (var line in lines)
-{
-    var (dir,dirname) = IsDirectory(line);
-    if (dir) {
-        if (dirname == "..") {
-            var current = dirStack.Pop();
-        } else {
-            var current = dirStack.Peek();
-            var newdir = new Node(0);
-            current.AddNode(newdir);
-            dirStack.Push(newdir);
-        }
-    }
-    var (file,size) = IsFile(line);
-    if (file) {
-        var current = dirStack.Peek();
-        current.AddNode(new Node(size));
-    }
-}
+ParseFileToTree(lines, dirStack);
 
 var dirList = new List<Node>(); 
 var sizeOfRoot = SumTree(root,dirList);
@@ -45,7 +27,6 @@ static int SumTree(Node node, List<Node> dir) { //DFS
     }   
 }
 
-
 static (bool,string) IsDirectory(string line) {
     if (line.StartsWith("$ cd")) {
         return (true, line.Split(" ")[2]);
@@ -60,5 +41,30 @@ static (bool,int) IsFile(string line) {
     return (false,0);
 }
 
-
-
+static void ParseFileToTree(string[] lines, Stack<Node> dirStack)
+{
+    foreach (var line in lines)
+    {
+        var (dir, dirname) = IsDirectory(line);
+        if (dir)
+        {
+            if (dirname == "..")
+            {
+                var current = dirStack.Pop();
+            }
+            else
+            {
+                var current = dirStack.Peek();
+                var newdir = new Node(0);
+                current.AddNode(newdir);
+                dirStack.Push(newdir);
+            }
+        }
+        var (file, size) = IsFile(line);
+        if (file)
+        {
+            var current = dirStack.Peek();
+            current.AddNode(new Node(size));
+        }
+    }
+}
