@@ -13,8 +13,7 @@ for (int col = 1; col < forest.gridWidth-1; col++)
     for (int row = 1; row < forest.gridHeight-1; row++)
     {       
         var tree = forest.GetTree(col,row);
-        var score = ScenicScore(tree, forest);
-        scenicScores.Add(score);
+        scenicScores.Add(ScenicScore(tree, forest));
         if (IsVisible(tree, forest)) {
             visible++;
         }
@@ -26,6 +25,7 @@ System.Console.WriteLine($"Solution2: {scenicScores.Max()}");
 
 bool IsVisible(Tree tree, Forest forest)
 {
+    // Visible if not hidden from all direction
     var visible = funcs.Select(f => f(tree).Where(height =>  height >= tree.height).Any()).Select(hidden => hidden ? 1 : 0).Sum() < 4;
     return visible;
 }
@@ -33,7 +33,6 @@ bool IsVisible(Tree tree, Forest forest)
 
 int ScenicScore(Tree tree, Forest forest)
 {
-    
     int score = funcs.Select(f => f(tree).Select((height,idx) => (h: height,i: idx+1)) // Add the index so we know the distance from the start
     .Where((t) => t.h>=tree.height)
     .OrderBy(t => t.i) // Get the first tree that is higher
