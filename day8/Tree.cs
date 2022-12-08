@@ -1,22 +1,20 @@
-public record Tree(int height, int row, int col);
+public record Cell(int value, int row, int col);
 
-public class Forest
+public class Grid2D
 {
     int[,] grid;
     public int gridWidth, gridHeight;
 
-    public Forest(string[] gridLines)
+    public Grid2D(string[] gridLines)
     {
-        parseForestGrid(gridLines);
+        gridWidth = gridLines[0].Length;
+        gridHeight = gridLines.Length;
+        grid = new int[gridWidth, gridHeight];
+        parseGrid(gridLines);
     }
 
-    private void parseForestGrid(string[] lines)
+    private void parseGrid(string[] lines)
     {
-        gridWidth = lines[0].Length;
-        gridHeight = lines.Length;
-
-        grid = new int[gridWidth, gridHeight];
-
         for (int col = 0; col < gridWidth; col++)
         {
             for (int row = 0; row < gridHeight; row++)
@@ -26,44 +24,38 @@ public class Forest
         }
     }
 
-    public Tree GetTree(int col, int row) {
-        return new Tree(grid[col,row], row,col);
+    public Cell GetCell(int col, int row) {
+        return new Cell(grid[col,row], row,col);
     }
 
-    public IEnumerable<int> WalkWest(Tree tree)
+    public IEnumerable<int> WalkWest(Cell tree)
     {
-        for (int i = tree.col - 1; i >= 0; i--) //W
-        {
-            var neighbour = grid[i, tree.row];
-            yield return neighbour;
-
-        }
+        return Walk(tree, (-1,0));
     }
 
-    public IEnumerable<int> WalkEast(Tree tree)
+    public IEnumerable<int> WalkEast(Cell tree)
     {
-        for (int i = tree.col + 1; i < gridWidth; i++) //E
-        {
-            var neighbour = grid[i, tree.row];
-            yield return neighbour;
-        }
+        return Walk(tree, (1,0));
     }
 
-    public IEnumerable<int> WalkNorth(Tree tree)
+    public IEnumerable<int> WalkNorth(Cell tree)
     {
-        for (int i = tree.row - 1; i >= 0; i--) // N
-        {
-            var neighbour = grid[tree.col, i];
-            yield return neighbour;
-        }
+        return Walk(tree, (0,1));
     }
 
-    public IEnumerable<int> WalkSouth(Tree tree)
+    public IEnumerable<int> WalkSouth(Cell tree)
     {
-        for (int i = tree.row + 1; i < gridHeight; i++) //S
-        {
-            var neighbour = grid[tree.col, i];
-            yield return neighbour;
-        }
+        return Walk(tree, (0,-1));
+    }
+
+    public IEnumerable<int> Walk(Cell tree, (int dr, int dc) delta) {
+        var row = tree.row + delta.dr;
+        var col = tree.col + delta.dc;
+
+        while ((0 <= row && row < this.gridHeight) && (0 <= col && col < this.gridWidth)) {
+            yield return grid[col,row];
+            row += delta.dr;
+            col += delta.dc;
+        } 
     }
 }
