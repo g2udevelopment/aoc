@@ -23,6 +23,7 @@ static void Solution2(string[] chunks)
     const int ROUNDS = 10_000;
     var monkeys = chunks.Select((chunk, idx) => (idx, monkey: new Monkey(chunk))).ToDictionary(m => m.idx, m => m.monkey);
     var nrmonkeys = monkeys.Count();
+    // We use the product of all divisors as a mod for all arthimetic
     int mod = monkeys.Values.Aggregate(1, (acc, m) => acc * m.Divisor);
 
     DoBusiness(monkeys, ROUNDS, nrmonkeys, mod);
