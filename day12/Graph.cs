@@ -46,7 +46,6 @@ public class Graph {
 
     public char GetHeightFromMap(Vertex vertex) {
         var height = map[vertex.X,vertex.Y];
-        //System.Console.WriteLine($"height is: {height}");
         height = height switch {
             'S' => 'a',
             'E' => 'z',
