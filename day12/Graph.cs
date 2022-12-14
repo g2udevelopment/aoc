@@ -2,19 +2,19 @@ public record Vertex(int X, int Y);
 
 public class Graph {
     int height,width;
-    char[,] map;
+    string[] map;
     public Vertex End {get;init;}
 
     public Graph(string[] lines) {
         height = lines.Length;
         width = lines[0].Length;
-        map = new char[width,height];
+        map = lines;
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-               map[x,y] = lines[y][x];
-               if (map[x,y] == 'E') {
+              // map[x,y] = lines[y][x];
+               if (map[y][x] == 'E') {
                 End = new Vertex(x,y);
                 System.Console.WriteLine($"End is at: {x},{y}");
                } 
@@ -45,7 +45,7 @@ public class Graph {
     }
 
     public char GetHeightFromMap(Vertex vertex) {
-        var height = map[vertex.X,vertex.Y];
+        var height = map[vertex.Y][vertex.X];
         height = height switch {
             'S' => 'a',
             'E' => 'z',
@@ -55,7 +55,7 @@ public class Graph {
     }
 
     public char GetCharFromMap(Vertex vertex) {
-        return map[vertex.X,vertex.Y];
+        return map[vertex.Y][vertex.X];
     }
 
     public List<Vertex> GetNeigbours(Vertex current) {
