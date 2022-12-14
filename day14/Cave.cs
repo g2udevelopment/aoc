@@ -25,7 +25,6 @@ public class Cave {
         int units = 0;
         bool running = true;
         var current = new Point(start.x, start.y);
-        System.Console.WriteLine(bottom);
         while (running) {  
             var next = NextPoint(current);
             
