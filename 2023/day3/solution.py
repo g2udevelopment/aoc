@@ -69,7 +69,7 @@ def sol2_sum(stars_total):
 sol1 = 0
 sol2 = 0
 row = 0
-stars_total = defaultdict(list)
+stars_total = defaultdict(list) # Store the numbers that are adj on the star position
 with open("input.txt","r") as file:
     grid = file.readlines()
     for line in grid:
