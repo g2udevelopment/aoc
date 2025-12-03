@@ -18,7 +18,6 @@ fn largest_subsequence(s: &str, k: usize) -> String {
     let mut removed = 0;
     
     for ch in s.chars() {
-        // Remove smaller digits if we can afford to
         while !stack.is_empty() 
             && removed < to_remove 
             && stack.last().unwrap() < &ch 
