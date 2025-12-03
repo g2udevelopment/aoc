@@ -1,11 +1,11 @@
 use std::fs::read_to_string;
 
-fn parse_line(line: &str) -> Option<(&str,i32)> {
+fn parse_line(line: &str) -> Option<(&str, i32)> {
     let (dir, num) = line.split_at(1);
     let number: i32 = num.parse().ok()?;
     match dir {
-        "L" => Some((dir,-number)),
-        "R" => Some((dir,number)),
+        "L" => Some((dir, -number)),
+        "R" => Some((dir, number)),
         _ => None,
     }
 }
@@ -16,9 +16,8 @@ pub fn solve() -> std::io::Result<()> {
     let mut cross_zero = 0;
 
     for line in read_to_string("input-day1.txt")?.lines() {
-        let (dir,rotation) = parse_line(line).ok_or_else(|| {
-            std::io::Error::new(std::io::ErrorKind::InvalidData, "Parse error")
-        })?;
+        let (dir, rotation) = parse_line(line)
+            .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::InvalidData, "Parse error"))?;
 
         cross_zero += (rotation / 100).abs();
         let new = (current + rotation).rem_euclid(100);
