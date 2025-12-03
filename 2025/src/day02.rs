@@ -107,19 +107,19 @@ mod tests {
 
     #[test]
     fn sum_invalid_1() {
-        let result = sum_invalid_ids((11, 22));
+        let result = sum_invalid_ids((11, 22), invalid_id);
         assert_eq!(result, 33);
     }
 
     #[test]
     fn sum_invalid_2() {
-        let result = sum_invalid_ids((38593856, 38593862));
+        let result = sum_invalid_ids((38593856, 38593862), invalid_id);
         assert_eq!(result, 38593859);
     }
 
     #[test]
     fn sum_invalid_3() {
-        let result = sum_invalid_ids((1, 19));
+        let result = sum_invalid_ids((1, 19), invalid_id);
         assert_eq!(result, 11);
     }
 

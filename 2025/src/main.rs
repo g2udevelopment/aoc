@@ -1,5 +1,6 @@
 mod day01;
 mod day02;
+mod day03;
 
 use std::env;
 
@@ -15,6 +16,7 @@ fn main() -> std::io::Result<()> {
     match day {
         1 => day01::solve()?,
         2 => day02::solve()?,
+        3 => day03::solve()?,
         _ => println!("Day {} not implemented yet!", day),
     }
 
